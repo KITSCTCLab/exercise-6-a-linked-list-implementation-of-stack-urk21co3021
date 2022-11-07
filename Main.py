@@ -1,68 +1,52 @@
 class Node:
-  """
-  Class implementing node of the LinkedList
-  Attributes:
-    -> data - data held by the node
-    -> next - link to the next node
-  """
   def __init__(self, data):
     self.data = data
     self.next = None
 
 
-class Queue:
-  """
-  Class implementing Queue as a LinkedList
-  """
+class Stack:
   def __init__(self):
-    """
-    Initialises Queue object with pointers head and tail set to None
-    """
     self.head = None
-    self.tail = None
 
-  def enqueue(self, data) -> None:
-    """
-    Adds node containing data passed to the rear of the queue
-    """
-    new = Node(data)
-    if not self.tail is None:
-      self.tail.next = new
-    if self.head is None:
-      self.head = new
-    self.tail = new
+  def push(self, data) -> None:
+    # Write your code here
+    new_node = Node(data)
+    new_node.next = self.head
+    self.head = new_node
 
-  def dequeue(self) -> None:
-    """
-    Removes node from the rear of the queue
-    """
-    if not self.head is None:
-      self.head = self.head.next
-      if self.head is None:
-        self.tail = None
+  def pop(self) -> None:
+    # Write your code here
+    if(self.head != None): 
+      temp = self.head
+      self.head = temp.next
+      temp.next = None
 
-  def status(self) -> None:
+  def status(self):
     """
-    It prints all the elements of Queue.
+    It prints all the elements of stack.
     """
-    elements = ""
-    curr = self.head
-    while not curr is None:
-      elements += str(curr.data) + "=>"
-      curr = curr.next
-    print(elements + "None")
+    # Write your code here 
+    if(self.head != None):
+      temp = self.head
+      while(temp.next != None):
+        print(temp.data, end = "=>")
+        temp = temp.next
+      else:
+        print(temp.data,"None", sep="=>")
+    else:
+      print("None")
 
 
 # Do not change the following code
-queue = Queue()
+stack = Stack()
 operations = []
 for specific_operation in input().split(','):
     operations.append(specific_operation.strip())
 input_data = input()
 data = input_data.split(',')
 for i in range(len(operations)):
-  if operations[i] == "enqueue":
-    queue.enqueue(int(data[i]))
-  elif operations[i] == "dequeue":
-    queue.dequeue()
-queue.status()
+  if operations[i] == "push":
+    stack.push(int(data[i]))
+  elif operations[i] == "pop":
+    stack.pop()
+stack.status()
